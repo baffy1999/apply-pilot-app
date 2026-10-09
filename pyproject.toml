@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apply-pilot"
+version = "0.1.0"
+description = "A learning project for extracting structured resume data from PDF uploads."
+requires-python = ">=3.9"
+dependencies = [
+    "asyncpg>=0.29,<1",
+    "fastapi>=0.115,<1",
+    "openai>=2,<3",
+    "pydantic>=2,<3",
+    "pypdf>=5,<7",
+    "python-dotenv>=1,<2",
+    "python-multipart>=0.0.18,<1",
+    "sqlalchemy[asyncio]>=2,<3",
+    "uvicorn[standard]>=0.34,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "alembic>=1.14,<2",
+    "httpx>=0.28,<1",
+    "pytest>=8,<10",
+]
+
+[tool.setuptools]
+py-modules = ["app", "config", "database"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["api*", "models*", "repositories*", "services*", "storage*"]
+exclude = ["tests*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
